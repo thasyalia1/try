@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Neon Text Heart - I Love You</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    user-select:none;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#000;
+    font-family:Arial,sans-serif;
+}
+
+canvas{
+    display:block;
+    width:100vw;
+    height:100vh;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<canvas id="c"></canvas>
+
+
+<script>
+
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+
+let W,H,CX,CY,SCALE;
+
+const DPR = Math.min(window.devicePixelRatio || 1,2);
+
+const text = "I love you";
+
+const points=[];
+
+const TOTAL = 95;
+
+
+
+function resize(){
+
+    W = window.innerWidth;
+    H = window.innerHeight;
+
+    canvas.width = W * DPR;
+    canvas.height = H * DPR;
+
+    canvas.style.width = W+"px";
+    canvas.style.height = H+"px";
+
+
+    ctx.setTransform(1,0,0,1,0,0);
+
+    ctx.scale(DPR,DPR);
+
+
+    CX = W/2;
+    CY = H/2 + 20;
+
+
+    SCALE = Math.min(W,H)*0.014;
+
+
+    buildPoints();
+}
+
+
+
+function heart(t){
+
+    const x =
+    16*Math.pow(Math.sin(t),3);
+
+
+    const y =
+    13*Math.cos(t)
+    -5*Math.cos(2*t)
+    -2*Math.cos(3*t)
+    -Math.cos(4*t);
+
+
+    return{
+        x:x*SCALE,
+        y:-y*SCALE
+    };
+
+}
+
+
+
+
+function buildPoints(){
+
+    points.length=0;
+
+
+    for(let i=0;i<TOTAL;i++){
+
+        let t =
+        (i/TOTAL)*Math.PI*2;
+
+
+        let pos = heart(t);
+
+
+        points.push({
+
+            x:pos.x,
+            y:pos.y,
+
+            tx:0,
+            ty:0,
+
+            angle:Math.random()*Math.PI*2,
+
+            speed:
+            0.01+Math.random()*0.02,
+
+            offset:
+            Math.random()*100
+
+        });
+
+    }
+
+}
+
+
+
+
+
+function glowText(txt,x,y,size,alpha){
+
+
+    ctx.save();
+
+
+    ctx.font =
+    `bold ${size}px Arial`;
+
+
+    ctx.textAlign="center";
+    ctx.textBaseline="middle";
+
+
+    ctx.globalAlpha=alpha;
+
+
+
+    // neon glow
+
+    ctx.shadowColor =
+    "rgba(255,80,180,1)";
+
+
+    ctx.shadowBlur=25;
+
+
+    ctx.fillStyle="#ff72c6";
+
+
+    ctx.fillText(
+        txt,
+        x,
+        y
+    );
+
+
+    ctx.restore();
+
+}
+
+
+
+
+let time=0;
+
+
+
+function animate(){
+
+
+    ctx.clearRect(
+        0,
+        0,
+        W,
+        H
+    );
+
+
+    time+=0.02;
+
+
+
+    // background glow
+
+    let gradient =
+    ctx.createRadialGradient(
+        CX,
+        CY,
+        20,
+        CX,
+        CY,
+        W/2
+    );
+
+
+    gradient.addColorStop(
+        0,
+        "rgba(255,0,150,0.12)"
+    );
+
+
+    gradient.addColorStop(
+        1,
+        "rgba(0,0,0,0)"
+    );
+
+
+    ctx.fillStyle=gradient;
+
+
+    ctx.fillRect(
+        0,
+        0,
+        W,
+        H
+    );
+
+
+
+    points.forEach((p,i)=>{
+
+
+        let pulse =
+        Math.sin(
+            time*2+p.offset
+        )*4;
+
+
+
+        let x =
+        CX+p.x+pulse;
+
+
+        let y =
+        CY+p.y+pulse;
+
+
+
+        let size =
+        14+Math.sin(time+p.offset)*3;
+
+
+
+        glowText(
+            text,
+            x,
+            y,
+            size,
+            1
+        );
+
+
+    });
+
+
+
+    // middle message
+
+    glowText(
+        "♥",
+        CX,
+        CY,
+        55,
+        1
+    );
+
+
+    requestAnimationFrame(
+        animate
+    );
+
+}
+
+
+
+window.addEventListener(
+"resize",
+resize
+);
+
+
+resize();
+animate();
+
+
+</script>
+
+
+</body>
+</html>
