@@ -170,7 +170,7 @@ html, body {
     color: white;
 }
 
-/* ===== SNOWFLAKE KRISTAL CANTIK - 6 HUJUNG ===== */
+/* ===== SNOWFLAKE KRISTAL ===== */
 .snowflake {
     position: absolute;
     pointer-events: none;
@@ -265,97 +265,281 @@ html, body {
     100% { transform: scale(1) rotate(0deg); opacity: 1; }
 }
 
-/* ===== ENVELOPE ===== */
-#envelopeContainer {
-    animation: envelopeFloat 3s ease-in-out infinite;
+/* ===== ORIGAMI BIRD - SUPER REALISTIC ===== */
+#origamiContainer {
     position: relative;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-@keyframes envelopeFloat {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    25% { transform: translateY(-8px) rotate(-1deg); }
-    75% { transform: translateY(-8px) rotate(1deg); }
-}
-
-#envelope {
+.origami-bird {
     position: relative;
-    width: clamp(280px, 40vw, 400px);
-    height: clamp(180px, 25vw, 250px);
-    background: linear-gradient(145deg, #ff9fbc, #ff7da8);
-    border-radius: 15px;
-    overflow: visible;
-    box-shadow: 0 10px 40px rgba(255,100,150,0.3);
-    animation: envelopePulse 2s ease-in-out infinite;
-}
-
-@keyframes envelopePulse {
-    0%, 100% { box-shadow: 0 10px 40px rgba(255,100,150,0.3); }
-    50% { box-shadow: 0 15px 60px rgba(255,100,150,0.5), 0 0 80px rgba(255,100,150,0.1); }
-}
-
-#flap {
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-left: clamp(140px, 20vw, 200px) solid transparent;
-    border-right: clamp(140px, 20vw, 200px) solid transparent;
-    border-top: clamp(100px, 14vw, 150px) solid #ff6f9c;
-    z-index: 5;
-    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-#paper {
-    position: absolute;
-    left: clamp(10px, 1.5vw, 20px);
-    bottom: clamp(15px, 2vw, 25px);
-    width: calc(100% - clamp(20px, 3vw, 40px));
-    min-height: clamp(180px, 25vw, 280px);
-    background: linear-gradient(180deg, #ffffff, #fff5f7);
-    color: black;
-    padding: clamp(15px, 2.5vw, 30px);
-    border-radius: 12px;
-    transform: translateY(80px) scale(0.9);
-    opacity: 0;
+    width: 200px;
+    height: 200px;
+    transform-style: preserve-3d;
     transition: all 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    z-index: 10;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
 }
 
-#paper.open {
-    transform: translateY(clamp(-120px, -18vw, -200px)) scale(1);
-    opacity: 1;
-}
-
-#letterText {
-    text-align: center;
-    line-height: 1.8;
-    white-space: pre-line;
-    font-size: clamp(12px, 1.5vw, 16px);
-    color: #333;
-}
-
-#seal {
+/* Badan utama - bentuk diamond origami */
+.origami-bird .body-main {
     position: absolute;
-    top: clamp(70px, 10vw, 100px);
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 80px solid #ff8fab;
+    top: 50px;
+    left: 60px;
+    transform: skewX(-5deg);
+    filter: drop-shadow(0 5px 15px rgba(255,100,150,0.3));
+}
+
+/* Badan bawah */
+.origami-bird .body-bottom {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-top: 60px solid #ff7da8;
+    top: 120px;
+    left: 60px;
+    transform: skewX(-5deg);
+}
+
+/* Sayap kiri - origami fold */
+.origami-bird .wing-left {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 55px solid transparent;
+    border-right: 25px solid transparent;
+    border-bottom: 90px solid #ff9fbc;
+    top: 30px;
+    left: 10px;
+    transform-origin: bottom right;
+    transform: rotate(15deg) skewX(-10deg);
+    filter: drop-shadow(-5px 5px 10px rgba(255,100,150,0.2));
+    clip-path: polygon(0% 0%, 100% 0%, 80% 100%, 0% 100%);
+    border-radius: 0 0 0 20px;
+}
+
+/* Sayap kanan - origami fold */
+.origami-bird .wing-right {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-right: 55px solid transparent;
+    border-left: 25px solid transparent;
+    border-bottom: 90px solid #ff7da8;
+    top: 30px;
+    right: 10px;
+    transform-origin: bottom left;
+    transform: rotate(-15deg) skewX(10deg);
+    filter: drop-shadow(5px 5px 10px rgba(255,100,150,0.2));
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 20% 100%);
+    border-radius: 0 0 20px 0;
+}
+
+/* Lipatan sayap - origami detail */
+.origami-bird .wing-fold-left {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 30px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 50px solid #ffb3d0;
+    top: 60px;
+    left: 30px;
+    transform-origin: bottom right;
+    transform: rotate(10deg) skewX(-5deg);
+    opacity: 0.7;
+}
+
+.origami-bird .wing-fold-right {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-right: 30px solid transparent;
+    border-left: 20px solid transparent;
+    border-bottom: 50px solid #ff8fab;
+    top: 60px;
+    right: 30px;
+    transform-origin: bottom left;
+    transform: rotate(-10deg) skewX(5deg);
+    opacity: 0.7;
+}
+
+/* Kepala origami */
+.origami-bird .head {
+    position: absolute;
+    width: 35px;
+    height: 30px;
+    background: #ff9fbc;
+    clip-path: polygon(0% 0%, 100% 0%, 80% 100%, 20% 100%);
+    top: 20px;
+    left: 82px;
+    border-radius: 50% 50% 0 0;
+    filter: drop-shadow(0 -5px 10px rgba(255,100,150,0.2));
+}
+
+/* Paruh origami */
+.origami-bird .beak {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 15px solid #ff6b8a;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+    top: 32px;
+    right: -10px;
+    transform: rotate(10deg);
+}
+
+/* Mata */
+.origami-bird .eye {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #2d1b1b;
+    border-radius: 50%;
+    top: 26px;
+    right: 6px;
+    box-shadow: 0 0 8px rgba(255,255,255,0.5);
+}
+
+.origami-bird .eye::after {
+    content: '';
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    top: 1px;
+    right: 1px;
+}
+
+/* Ekor origami */
+.origami-bird .tail {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 25px solid transparent;
+    border-right: 25px solid transparent;
+    border-top: 40px solid #ff7da8;
+    bottom: -10px;
+    left: 75px;
+    transform: rotate(180deg) skewX(5deg);
+    filter: drop-shadow(0 -5px 10px rgba(255,100,150,0.2));
+}
+
+.origami-bird .tail-fold {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 30px solid #ff8fab;
+    bottom: -5px;
+    left: 80px;
+    transform: rotate(180deg) skewX(-5deg);
+    opacity: 0.6;
+}
+
+/* Surat dari origami */
+.origami-bird .paper-message {
+    position: absolute;
+    width: 220px;
+    min-height: 130px;
+    background: linear-gradient(180deg, #ffffff, #fff5f7);
+    color: #333;
+    padding: 18px 20px;
+    border-radius: 12px;
+    top: -90px;
+    left: -10px;
+    font-size: 13px;
+    line-height: 1.8;
+    text-align: center;
+    box-shadow: 0 15px 50px rgba(0,0,0,0.6), 0 0 30px rgba(255,100,150,0.1);
+    opacity: 0;
+    transform: scale(0.7) translateY(20px);
+    transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    z-index: 15;
+    pointer-events: none;
+    border: 2px solid rgba(255,100,150,0.2);
+}
+
+.origami-bird .paper-message::after {
+    content: '🕊️';
+    position: absolute;
+    bottom: -20px;
     left: 50%;
     transform: translateX(-50%);
-    width: clamp(40px, 5vw, 60px);
-    height: clamp(40px, 5vw, 60px);
-    background: radial-gradient(circle at 30% 30%, #ff6b9d, #ff2d75);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 20;
-    font-size: clamp(18px, 2.5vw, 28px);
-    box-shadow: 0 0 30px rgba(255,51,102,0.5);
-    animation: sealPulse 2s infinite;
-    pointer-events: none;
+    font-size: 20px;
 }
 
-@keyframes sealPulse {
-    0%, 100% { transform: translateX(-50%) scale(1); }
-    50% { transform: translateX(-50%) scale(1.15); }
+.origami-bird .paper-message.show {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+.origami-bird .paper-message strong {
+    color: #ff3366;
+    font-size: 15px;
+}
+
+/* Wing flap animation */
+.origami-bird .wing-left.flap {
+    animation: flapLeft 0.25s ease-in-out infinite alternate;
+}
+
+.origami-bird .wing-right.flap {
+    animation: flapRight 0.25s ease-in-out infinite alternate;
+}
+
+@keyframes flapLeft {
+    0% { transform: rotate(15deg) skewX(-10deg); }
+    100% { transform: rotate(-35deg) skewX(-15deg); }
+}
+
+@keyframes flapRight {
+    0% { transform: rotate(-15deg) skewX(10deg); }
+    100% { transform: rotate(35deg) skewX(15deg); }
+}
+
+/* Bird flying away */
+.origami-bird.flying {
+    animation: flyAway 5s ease-in-out forwards;
+}
+
+@keyframes flyAway {
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    15% {
+        transform: translate(60px, -100px) scale(1.1) rotate(-8deg);
+        opacity: 1;
+    }
+    35% {
+        transform: translate(-100px, -200px) scale(1.2) rotate(12deg);
+        opacity: 1;
+    }
+    55% {
+        transform: translate(120px, -300px) scale(1.3) rotate(-6deg);
+        opacity: 0.9;
+    }
+    75% {
+        transform: translate(-60px, -400px) scale(1.2) rotate(10deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translate(80px, -550px) scale(1.5) rotate(-5deg);
+        opacity: 0;
+    }
 }
 
 /* ===== FIREWORKS ===== */
@@ -411,7 +595,8 @@ html, body {
 @media (max-width: 480px) {
     #lyrics { font-size: 1em; }
     #photoGallery img { width: 100px; height: 100px; }
-    #envelope { width: 260px; height: 170px; }
+    .origami-bird { transform: scale(0.7); }
+    #origamiContainer { height: 200px; }
 }
 
 </style>
@@ -449,13 +634,33 @@ html, body {
         <img src="photo2.jpg" alt="Memory 2" draggable="false">
         <img src="photo3.jpg" alt="Memory 3" draggable="false">
     </div>
-    <div id="envelopeContainer">
-        <div id="envelope">
-            <div id="paper">
-                <div id="letterText"></div>
+
+    <div id="origamiContainer">
+        <div class="origami-bird" id="origamiBird">
+            <!-- Surat dari origami -->
+            <div class="paper-message" id="paperMessage">
+                <strong>I'm sorry Naziff ❤️</strong><br>
+                Thank you for every memory, sayang.<br>
+                Please give me another chance.<br>
+                I hope we can be okay again ❤️
             </div>
-            <div id="flap"></div>
-            <div id="seal">❤️</div>
+            
+            <!-- Origami parts -->
+            <div class="body-main"></div>
+            <div class="body-bottom"></div>
+            
+            <div class="wing-left" id="wingLeft"></div>
+            <div class="wing-right" id="wingRight"></div>
+            
+            <div class="wing-fold-left"></div>
+            <div class="wing-fold-right"></div>
+            
+            <div class="head"></div>
+            <div class="beak"></div>
+            <div class="eye"></div>
+            
+            <div class="tail"></div>
+            <div class="tail-fold"></div>
         </div>
     </div>
 </div>
@@ -556,7 +761,7 @@ let musicStarted = false;
 let fireworksInterval = null;
 
 // ============================================
-// SNOWFLAKE KRISTAL SVG
+// SNOWFLAKE SVG
 // ============================================
 function createSnowflakeSVG(size) {
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -691,37 +896,32 @@ function showEnding() {
         document.getElementById("photoGallery").classList.add("show");
     }, 500);
     
+    // Show origami bird with paper message
     setTimeout(() => {
-        document.getElementById("paper").classList.add("open");
-    }, 8500);
+        const paper = document.getElementById("paperMessage");
+        paper.classList.add("show");
+        
+        // Start wing flapping
+        document.getElementById("wingLeft").classList.add("flap");
+        document.getElementById("wingRight").classList.add("flap");
+    }, 2000);
     
+    // Bird flies away after message shown
     setTimeout(() => {
-        typeLetter();
+        const bird = document.getElementById("origamiBird");
+        bird.classList.add("flying");
+        
+        // Remove wing flaps after flying starts
+        setTimeout(() => {
+            document.getElementById("wingLeft").classList.remove("flap");
+            document.getElementById("wingRight").classList.remove("flap");
+        }, 500);
+    }, 6000);
+    
+    // Start neon heart after bird flies away
+    setTimeout(() => {
+        startNeonHeart();
     }, 11000);
-}
-
-function typeLetter() {
-    if (letterStarted) return;
-    letterStarted = true;
-    
-    setTimeout(() => {
-        startFloatingHearts();
-    }, 1000);
-    
-    const text = `I'm sorry Naziff ❤️\nThank you for every memory, sayang.\nPlease give me another chance.\nI hope we can be okay again ❤️`;
-    let target = document.getElementById("letterText");
-    let i = 0;
-    
-    let timer = setInterval(() => {
-        target.innerHTML += text.charAt(i);
-        i++;
-        if (i >= text.length) {
-            clearInterval(timer);
-            setTimeout(() => {
-                startNeonHeart();
-            }, 8000);
-        }
-    }, 40);
 }
 
 // ============================================
@@ -821,75 +1021,4 @@ function neonDraw() {
         hctx.translate(cx + p.x + pulse, cy + p.y + pulse);
         hctx.font = "bold 22px Arial";
         hctx.textAlign = "center";
-        hctx.shadowColor = "#ff4fa3";
-        hctx.shadowBlur = 35;
-        hctx.fillStyle = "#ff7ed0";
-        hctx.fillText("I love u Naziff", 0, 0);
-        hctx.restore();
-    });
-    requestAnimationFrame(neonDraw);
-}
-
-function startNeonHeart() {
-    stopFloatingHearts();
-    document.getElementById("neonHeart").style.display = "block";
-    makeHeart();
-    neonDraw();
-}
-
-// ============================================
-// START APP - FIXED!
-// ============================================
-function startApp(e) {
-    if (e) e.preventDefault();
-    if (musicStarted) return;
-    musicStarted = true;
-    
-    let music = document.getElementById("bgMusic");
-    
-    music.play().catch(() => {
-        document.addEventListener('touchstart', function retry() {
-            music.play().catch(() => {});
-            document.removeEventListener('touchstart', retry);
-        }, {once: true});
-    });
-    
-    document.getElementById("startScreen").style.display = "none";
-    showLyrics();
-    
-    // Start snow
-    snowInterval = setInterval(createSnow, 100);
-}
-
-// EVENT LISTENERS - FIXED!
-document.getElementById("startScreen").addEventListener("click", startApp, {once: true});
-document.getElementById("startScreen").addEventListener("touchstart", function(e) {
-    e.preventDefault();
-    startApp(e);
-}, {once: true, passive: false});
-
-// ============================================
-// RESIZE
-// ============================================
-window.addEventListener('resize', function() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    resizeHeart();
-    document.body.style.height = window.innerHeight + 'px';
-});
-
-// ============================================
-// CLEANUP
-// ============================================
-window.addEventListener('beforeunload', function() {
-    if (syncId) cancelAnimationFrame(syncId);
-    if (snowInterval) clearInterval(snowInterval);
-    if (fireworksInterval) clearInterval(fireworksInterval);
-    if (floatingHeartInterval) clearInterval(floatingHeartInterval);
-});
-
-console.log("❤️ Full version ready! Tap to Start works! ❤️");
-</script>
-
-</body>
-</html>
+        hctx.shadow
