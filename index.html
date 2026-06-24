@@ -170,21 +170,26 @@ html, body {
     color: white;
 }
 
-/* ===== SNOW - ORIGINAL STYLE ===== */
+/* ===== SNOWFLAKE KRISTAL CANTIK - 6 HUJUNG ===== */
 .snowflake {
     position: absolute;
-    color: white;
-    animation: fall linear infinite;
     pointer-events: none;
     will-change: transform;
-    font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
-    text-shadow: 0 0 5px rgba(255,255,255,0.2);
+    opacity: 0.9;
+    animation: fall linear infinite;
+}
+
+/* Lukis snowflake guna SVG */
+.snowflake svg {
+    display: block;
+    width: 100%;
+    height: 100%;
 }
 
 @keyframes fall {
     0% {
         transform: translateY(-10vh) translateX(0px) rotate(0deg);
-        opacity: 0.8;
+        opacity: 0.9;
     }
     25% {
         transform: translateY(20vh) translateX(20px) rotate(90deg);
@@ -196,7 +201,7 @@ html, body {
     }
     75% {
         transform: translateY(80vh) translateX(20px) rotate(270deg);
-        opacity: 0.6;
+        opacity: 0.7;
     }
     100% {
         transform: translateY(110vh) translateX(-10px) rotate(360deg);
@@ -268,7 +273,7 @@ html, body {
     box-shadow: 0 0 50px rgba(255,100,150,0.4);
 }
 
-/* ===== ENVELOPE ===== */
+/* ===== ENVELOPE WITH ANIMATION ===== */
 #envelopeContainer {
     animation: envelopeFloat 3s ease-in-out infinite;
     position: relative;
@@ -287,13 +292,37 @@ html, body {
     background: linear-gradient(145deg, #ff9fbc, #ff7da8);
     border-radius: 15px;
     overflow: visible;
-    box-shadow: 0 10px 40px rgba(255,100,150,0.3);
+    box-shadow: 
+        0 10px 40px rgba(255,100,150,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.4),
+        inset 0 -2px 0 rgba(200,80,120,0.3);
     animation: envelopePulse 2s ease-in-out infinite;
 }
 
 @keyframes envelopePulse {
-    0%, 100% { box-shadow: 0 10px 40px rgba(255,100,150,0.3); }
-    50% { box-shadow: 0 15px 60px rgba(255,100,150,0.5), 0 0 80px rgba(255,100,150,0.1); }
+    0%, 100% { box-shadow: 0 10px 40px rgba(255,100,150,0.3), inset 0 1px 0 rgba(255,255,255,0.4); }
+    50% { box-shadow: 0 15px 60px rgba(255,100,150,0.5), inset 0 1px 0 rgba(255,255,255,0.4), 0 0 80px rgba(255,100,150,0.1); }
+}
+
+#envelope::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 17px;
+    background: linear-gradient(45deg, #ff6f9c, #ffb3d9, #ff6f9c, #ffb3d9);
+    background-size: 300% 300%;
+    z-index: -1;
+    animation: borderGlow 3s ease-in-out infinite;
+    opacity: 0.5;
+}
+
+@keyframes borderGlow {
+    0% { background-position: 0% 50%; opacity: 0.3; }
+    50% { background-position: 100% 50%; opacity: 0.8; }
+    100% { background-position: 0% 50%; opacity: 0.3; }
 }
 
 #flap {
@@ -305,9 +334,9 @@ html, body {
     border-top: clamp(100px, 14vw, 150px) solid #ff6f9c;
     z-index: 5;
     transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    filter: drop-shadow(0 -5px 10px rgba(255,100,150,0.2));
 }
 
-/* ===== PAPER / SURAT ===== */
 #paper {
     position: absolute;
     left: clamp(10px, 1.5vw, 20px);
@@ -338,72 +367,6 @@ html, body {
     color: #333;
 }
 
-/* ===== ORIGAMI BURUNG ===== */
-#origamiBird {
-    position: fixed;
-    z-index: 50;
-    display: none;
-    pointer-events: none;
-}
-
-#origamiBird svg {
-    width: 100px;
-    height: 100px;
-    filter: drop-shadow(0 0 20px rgba(255,200,200,0.3));
-}
-
-.bird-fly {
-    animation: birdFly 6s ease-in-out forwards;
-}
-
-@keyframes birdFly {
-    0% {
-        transform: translate(0, 0) scale(0.5) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        transform: translate(50px, -50px) scale(0.8) rotate(-5deg);
-        opacity: 1;
-    }
-    30% {
-        transform: translate(200px, -150px) scale(1) rotate(-10deg);
-    }
-    50% {
-        transform: translate(400px, -250px) scale(1.2) rotate(-15deg);
-    }
-    70% {
-        transform: translate(600px, -350px) scale(1.3) rotate(-20deg);
-    }
-    100% {
-        transform: translate(900px, -500px) scale(1.5) rotate(-25deg);
-        opacity: 0.5;
-    }
-}
-
-/* Feather particles */
-.feather {
-    position: fixed;
-    z-index: 45;
-    pointer-events: none;
-    font-size: 14px;
-    animation: featherFloat linear forwards;
-    opacity: 0;
-}
-
-@keyframes featherFloat {
-    0% {
-        opacity: 0;
-        transform: translate(0, 0) rotate(0deg) scale(0.5);
-    }
-    20% {
-        opacity: 0.8;
-    }
-    100% {
-        opacity: 0;
-        transform: translate(var(--tx), var(--ty)) rotate(720deg) scale(1.5);
-    }
-}
-
 #seal {
     position: absolute;
     top: clamp(70px, 10vw, 100px);
@@ -418,15 +381,24 @@ html, body {
     justify-content: center;
     z-index: 20;
     font-size: clamp(18px, 2.5vw, 28px);
-    box-shadow: 0 0 30px rgba(255,51,102,0.5);
+    box-shadow: 
+        0 0 30px rgba(255,51,102,0.5),
+        inset 0 -2px 5px rgba(0,0,0,0.2),
+        inset 0 2px 5px rgba(255,255,255,0.3);
     animation: sealPulse 2s infinite;
     pointer-events: none;
     border: 2px solid rgba(255,255,255,0.2);
 }
 
 @keyframes sealPulse {
-    0%, 100% { transform: translateX(-50%) scale(1); }
-    50% { transform: translateX(-50%) scale(1.15); }
+    0%, 100% { 
+        transform: translateX(-50%) scale(1); 
+        box-shadow: 0 0 30px rgba(255,51,102,0.5), inset 0 -2px 5px rgba(0,0,0,0.2);
+    }
+    50% { 
+        transform: translateX(-50%) scale(1.15); 
+        box-shadow: 0 0 60px rgba(255,51,102,0.8), 0 0 100px rgba(255,51,102,0.3), inset 0 -2px 5px rgba(0,0,0,0.2);
+    }
 }
 
 /* ===== FIREWORKS ===== */
@@ -452,7 +424,7 @@ html, body {
     display: block;
 }
 
-/* ===== FLOATING HEARTS ===== */
+/* ===== FLOATING HEARTS - Only during letter ===== */
 .floating-heart {
     position: fixed;
     pointer-events: none;
@@ -476,7 +448,7 @@ html, body {
     }
 }
 
-/* ===== SPARKLES ===== */
+/* ===== SPARKLES AROUND ENVELOPE ===== */
 .sparkle {
     position: absolute;
     pointer-events: none;
@@ -492,17 +464,20 @@ html, body {
 }
 
 /* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) and (orientation: portrait) {
+    #lyrics { font-size: 1.8em; }
+    #photoGallery img { width: 150px; height: 150px; }
+}
+
 @media (max-width: 768px) {
     #lyrics { font-size: 1.2em; }
     #photoGallery img { width: 120px; height: 120px; }
-    #origamiBird svg { width: 70px; height: 70px; }
 }
 
 @media (max-width: 480px) {
     #lyrics { font-size: 1em; }
     #photoGallery img { width: 100px; height: 100px; }
     #envelope { width: 260px; height: 170px; }
-    #origamiBird svg { width: 50px; height: 50px; }
 }
 
 </style>
@@ -550,30 +525,6 @@ html, body {
             <div id="seal">❤️</div>
         </div>
     </div>
-</div>
-
-<!-- ===== ORIGAMI BIRD ===== -->
-<div id="origamiBird">
-    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <!-- Badan burung origami -->
-        <polygon points="50,20 80,60 50,80 20,60" fill="#fff5f7" stroke="#ff9fbc" stroke-width="1.5"/>
-        <!-- Sayap kiri -->
-        <polygon points="50,40 10,30 20,60 50,50" fill="#ffe0e8" stroke="#ff9fbc" stroke-width="1.5"/>
-        <!-- Sayap kanan -->
-        <polygon points="50,40 90,30 80,60 50,50" fill="#ffe0e8" stroke="#ff9fbc" stroke-width="1.5"/>
-        <!-- Ekor -->
-        <polygon points="50,80 35,95 50,90 65,95" fill="#ffd0dc" stroke="#ff9fbc" stroke-width="1"/>
-        <!-- Mata -->
-        <circle cx="45" cy="50" r="3" fill="#ff3366"/>
-        <circle cx="55" cy="50" r="3" fill="#ff3366"/>
-        <!-- Paruh -->
-        <polygon points="50,55 60,52 50,60" fill="#ffb347"/>
-        <!-- Corak origami -->
-        <line x1="50" y1="20" x2="50" y2="80" stroke="#ffd0dc" stroke-width="0.5" opacity="0.5"/>
-        <line x1="20" y1="60" x2="80" y2="60" stroke="#ffd0dc" stroke-width="0.5" opacity="0.5"/>
-        <!-- Hati pada badan -->
-        <text x="43" y="65" font-size="10" fill="#ff3366">❤️</text>
-    </svg>
 </div>
 
 <!-- ===== FIREWORKS ===== -->
@@ -627,7 +578,7 @@ function createShootingStar() {
 setInterval(createShootingStar, 3000);
 
 // ============================================
-// FLOATING HEARTS
+// FLOATING HEARTS - Only during letter
 // ============================================
 let floatingHeartInterval = null;
 
@@ -655,7 +606,7 @@ function stopFloatingHearts() {
 }
 
 // ============================================
-// SPARKLES
+// SPARKLES AROUND ENVELOPE
 // ============================================
 function createSparkles() {
     const envelope = document.getElementById('envelope');
@@ -671,69 +622,6 @@ function createSparkles() {
         sparkle.style.animationDelay = (Math.random() * 2) + 's';
         sparkle.style.fontSize = (10 + Math.random() * 15) + 'px';
         envelope.appendChild(sparkle);
-    }
-}
-
-// ============================================
-// ORIGAMI BIRD FLY
-// ============================================
-function flyOrigamiBird() {
-    const bird = document.getElementById('origamiBird');
-    const envelope = document.getElementById('envelope');
-    
-    // Get envelope position
-    const rect = envelope.getBoundingClientRect();
-    const startX = rect.left + rect.width / 2 - 50;
-    const startY = rect.top + rect.height / 2 - 50;
-    
-    bird.style.display = 'block';
-    bird.style.left = startX + 'px';
-    bird.style.top = startY + 'px';
-    bird.style.transform = 'scale(0.5) rotate(0deg)';
-    bird.style.opacity = '0';
-    
-    // Remove previous animation class
-    bird.classList.remove('bird-fly');
-    
-    // Trigger reflow
-    void bird.offsetWidth;
-    
-    // Add animation
-    bird.classList.add('bird-fly');
-    
-    // Create feather particles
-    createFeathers(startX, startY);
-    
-    // Hide bird after animation
-    setTimeout(() => {
-        bird.style.display = 'none';
-        bird.classList.remove('bird-fly');
-    }, 7000);
-}
-
-function createFeathers(x, y) {
-    const feathers = ['🪶', '✦', '❋', '✧', '·'];
-    const count = 15;
-    
-    for (let i = 0; i < count; i++) {
-        setTimeout(() => {
-            const feather = document.createElement('div');
-            feather.className = 'feather';
-            feather.textContent = feathers[Math.floor(Math.random() * feathers.length)];
-            feather.style.left = (x + 20 + Math.random() * 60) + 'px';
-            feather.style.top = (y + 20 + Math.random() * 60) + 'px';
-            feather.style.fontSize = (10 + Math.random() * 20) + 'px';
-            feather.style.setProperty('--tx', (50 + Math.random() * 400) + 'px');
-            feather.style.setProperty('--ty', (-100 - Math.random() * 300) + 'px');
-            feather.style.animationDuration = (3 + Math.random() * 3) + 's';
-            feather.style.color = ['#ffd0dc', '#ffe0e8', '#fff5f7', '#ff9fbc'][Math.floor(Math.random() * 4)];
-            
-            document.body.appendChild(feather);
-            
-            setTimeout(() => {
-                feather.remove();
-            }, 6000);
-        }, i * 100);
     }
 }
 
@@ -773,7 +661,7 @@ const lyrics = [
     {text: "Or what if you're lonely", time: 16},
     {text: "And you know I am too", time: 21},
     {text: "And I get the chance to say", time: 25},
-    {text: "im sorry naziff, I miss you", time: 31}
+    {text: "im sorry naziff, I miss you ❤️", time: 31}
 ];
 
 let box = document.getElementById("lyrics");
@@ -861,12 +749,6 @@ function typeLetter() {
         i++;
         if (i >= text.length) {
             clearInterval(timer);
-            
-            // FLY ORIGAMI BIRD
-            setTimeout(() => {
-                flyOrigamiBird();
-            }, 1500);
-            
             setTimeout(() => {
                 startNeonHeart();
             }, 8000);
@@ -875,22 +757,113 @@ function typeLetter() {
 }
 
 // ============================================
-// SNOW
+// SNOWFLAKE KRISTAL CANTIK - 6 HUJUNG
 // ============================================
-function createSnow() {
-    let snow = document.createElement("div");
-    snow.className = "snowflake";
-    snow.textContent = "❄";
-    snow.style.color = "white";
-    snow.style.fontSize = (8 + Math.random() * 20) + "px";
-    snow.style.left = Math.random() * 100 + "vw";
-    snow.style.animationDuration = (6 + Math.random() * 12) + "s";
-    snow.style.opacity = 0.2 + Math.random() * 0.8;
-    document.body.appendChild(snow);
-    setTimeout(() => snow.remove(), 18000);
+function createSnowflakeSVG(size) {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("viewBox", "-50 -50 100 100");
+    svg.setAttribute("width", size);
+    svg.setAttribute("height", size);
+    
+    const center = 0;
+    const armLength = 40;
+    const branchLength = 18;
+    
+    // Warna putih dengan sedikit transparency
+    const color = "rgba(255,255,255,0.9)";
+    
+    // Lukis 6 arm (lengan) snowflake
+    for (let i = 0; i < 6; i++) {
+        const angle = (i * 60) * Math.PI / 180;
+        const x = Math.cos(angle) * armLength;
+        const y = Math.sin(angle) * armLength;
+        
+        // Garisan utama
+        const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        line.setAttribute("x1", "0");
+        line.setAttribute("y1", "0");
+        line.setAttribute("x2", x);
+        line.setAttribute("y2", y);
+        line.setAttribute("stroke", color);
+        line.setAttribute("stroke-width", "3");
+        line.setAttribute("stroke-linecap", "round");
+        svg.appendChild(line);
+        
+        // Cabang kecil di hujung
+        for (let j = -1; j <= 1; j+=2) {
+            const branchAngle = angle + (j * 50 * Math.PI / 180);
+            const branchX = x * 0.6;
+            const branchY = y * 0.6;
+            const branchEndX = branchX + Math.cos(branchAngle) * branchLength;
+            const branchEndY = branchY + Math.sin(branchAngle) * branchLength;
+            
+            const branch = document.createElementNS("http://www.w3.org/2000/svg", "line");
+            branch.setAttribute("x1", branchX);
+            branch.setAttribute("y1", branchY);
+            branch.setAttribute("x2", branchEndX);
+            branch.setAttribute("y2", branchEndY);
+            branch.setAttribute("stroke", color);
+            branch.setAttribute("stroke-width", "2");
+            branch.setAttribute("stroke-linecap", "round");
+            svg.appendChild(branch);
+        }
+        
+        // Diamond kecil di hujung
+        const diamond = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        diamond.setAttribute("cx", x);
+        diamond.setAttribute("cy", y);
+        diamond.setAttribute("r", "3");
+        diamond.setAttribute("fill", color);
+        svg.appendChild(diamond);
+    }
+    
+    // Bulatan di tengah
+    const centerCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    centerCircle.setAttribute("cx", "0");
+    centerCircle.setAttribute("cy", "0");
+    centerCircle.setAttribute("r", "6");
+    centerCircle.setAttribute("fill", color);
+    svg.appendChild(centerCircle);
+    
+    // Hiasan tambahan - 6 titik di antara lengan
+    for (let i = 0; i < 6; i++) {
+        const angle = (i * 60 + 30) * Math.PI / 180;
+        const dotX = Math.cos(angle) * 25;
+        const dotY = Math.sin(angle) * 25;
+        
+        const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        dot.setAttribute("cx", dotX);
+        dot.setAttribute("cy", dotY);
+        dot.setAttribute("r", "1.5");
+        dot.setAttribute("fill", color);
+        svg.appendChild(dot);
+    }
+    
+    return svg;
 }
 
-snowInterval = setInterval(createSnow, 80);
+function createSnow() {
+    const snowflake = document.createElement('div');
+    snowflake.className = 'snowflake';
+    
+    const size = 25 + Math.random() * 35;
+    const svg = createSnowflakeSVG(size);
+    snowflake.appendChild(svg);
+    
+    snowflake.style.left = Math.random() * 100 + 'vw';
+    snowflake.style.width = size + 'px';
+    snowflake.style.height = size + 'px';
+    snowflake.style.animationDuration = (8 + Math.random() * 14) + 's';
+    snowflake.style.opacity = 0.3 + Math.random() * 0.6;
+    
+    document.body.appendChild(snowflake);
+    
+    setTimeout(() => {
+        snowflake.remove();
+    }, 22000);
+}
+
+snowInterval = setInterval(createSnow, 100);
 
 // ============================================
 // FIREWORKS
@@ -929,9 +902,11 @@ function animateFirework() {
         p.x += p.vx;
         p.y += p.vy;
         p.life--;
+        
         ctx.font = "20px serif";
         ctx.textAlign = "center";
         ctx.fillText("❤️", p.x, p.y);
+        
         if (p.life <= 0) {
             particles.splice(index, 1);
         }
@@ -972,6 +947,7 @@ function makeHeart() {
         let t = Math.PI * 2 * i / 160;
         let x = 16 * Math.pow(Math.sin(t), 3);
         let y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+        
         points.push({
             x: x * 18,
             y: y * 18,
@@ -983,10 +959,13 @@ function makeHeart() {
 function neonDraw() {
     hctx.clearRect(0, 0, hCanvas.width, hCanvas.height);
     ttt += 0.03;
+    
     let cx = hCanvas.width / 2;
     let cy = hCanvas.height / 2;
+    
     points.forEach(p => {
         let pulse = Math.sin(ttt + p.phase) * 5;
+        
         hctx.save();
         hctx.translate(cx + p.x + pulse, cy + p.y + pulse);
         hctx.font = "bold 22px Arial";
@@ -994,14 +973,16 @@ function neonDraw() {
         hctx.shadowColor = "#ff4fa3";
         hctx.shadowBlur = 35;
         hctx.fillStyle = "#ff7ed0";
-        hctx.fillText("I love u Naziff ❤️", 0, 0);
+        hctx.fillText("I love u Naziff", 0, 0);
         hctx.restore();
     });
+    
     requestAnimationFrame(neonDraw);
 }
 
 function startNeonHeart() {
     stopFloatingHearts();
+    
     document.getElementById("neonHeart").style.display = "block";
     makeHeart();
     neonDraw();
@@ -1013,4 +994,8 @@ function startNeonHeart() {
 function startApp(e) {
     if (e) e.preventDefault();
     if (musicStarted) return;
-    musicStarted = true
+    musicStarted = true;
+    
+    let music = document.getElementById("bgMusic");
+    
+    let playPromise = music
